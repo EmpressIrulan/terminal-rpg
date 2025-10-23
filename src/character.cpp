@@ -1,14 +1,12 @@
 #include "character.h"
 
-Character::Character(int clss){
-    if (clss = 0) {
+Character::Character(){
         strength = 0;
         dodge = 0;
         maxhp = 10;
         reason = 0;
         persuasion = 0;
         currentHp = 10;
-    }
 }
 
 void Character::dealDamage(int damage){

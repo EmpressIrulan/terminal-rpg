@@ -8,7 +8,7 @@ class Character{
         int currentHp;
 
     public:
-        Character(int clss);
+        Character();
         void dealDamage(int damage);
         void heal(int heal);
         void changeStrength(int change);
