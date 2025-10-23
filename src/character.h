@@ -12,11 +12,10 @@ class Character{
         void dealDamage(int damage);
         void heal(int heal);
         void changeStrength(int change);
-        void changeDoge(int change);
+        void changeDodge(int change);
         void changeReason(int change);
         void changePersuasion(int change);
         void changeMaxHp(int change);
-        bool checkAlive();
 
         int getStrength();
         int getDodge();
@@ -24,4 +23,6 @@ class Character{
         int getReason();
         int getPersuasion();
         int getCurrentHp();
+
+        bool checkAlive();
 };
