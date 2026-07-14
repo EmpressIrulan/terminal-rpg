@@ -16,8 +16,6 @@ g++ src/main.cpp src/character.cpp -o build/terminal-rpg
 
 Compiled output goes in `build/` (gitignored) to keep `src/` clean of build artifacts — this is the standard out-of-source-build convention. There's no Makefile yet; new `.cpp` files need to be added to the `g++` command by hand until one exists (see [issue #12](https://github.com/EmpressIrulan/terminal-rpg/issues/12) for the planned CMake upgrade).
 
-Compiler: use `g++`, not plain `gcc` — `g++` auto-links the C++ standard library, `gcc` does not.
-
 ## Conventions
 
 - Header/implementation split: one `.h` + one `.cpp` per class (see `src/character.h` / `src/character.cpp`).
