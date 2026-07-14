@@ -8,7 +8,13 @@ Roadmap and current build order are tracked in [issue #10](https://github.com/Em
 
 ## Build
 
-TBD — there is no `main()` entry point yet, so nothing currently compiles into a runnable program. Tracked in [issue #8](https://github.com/EmpressIrulan/terminal-rpg/issues/8). Once that lands, this section should be updated with the real compile/run command.
+```
+mkdir -p build
+g++ src/main.cpp src/character.cpp -o build/terminal-rpg
+./build/terminal-rpg
+```
+
+Compiled output goes in `build/` (gitignored) to keep `src/` clean of build artifacts — this is the standard out-of-source-build convention. There's no Makefile yet; new `.cpp` files need to be added to the `g++` command by hand until one exists (see [issue #12](https://github.com/EmpressIrulan/terminal-rpg/issues/12) for the planned CMake upgrade).
 
 Compiler: use `g++`, not plain `gcc` — `g++` auto-links the C++ standard library, `gcc` does not.
 
@@ -24,4 +30,5 @@ Compiler: use `g++`, not plain `gcc` — `g++` auto-links the C++ standard libra
 ## Architecture
 
 - `Character` (`src/character.h/.cpp`): player stats — strength, dodge, maxhp, reason, persuasion, currentHp — with change/get accessors and `checkAlive()`.
+- `main.cpp` (`src/main.cpp`): entry point — instantiates a `Character` and prints its stats to the terminal. Minimal by design; grows as rooms/encounters land.
 - Everything else (environment, encounters, minotaur clock, GUI) is not yet built — see the roadmap issue for planned order.
