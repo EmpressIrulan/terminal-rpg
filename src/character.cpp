@@ -7,6 +7,7 @@ Character::Character(){
         reason = 0;
         persuasion = 0;
         currentHp = 10;
+        gold = 0;
 }
 
 void Character::dealDamage(int damage){
@@ -37,6 +38,10 @@ void Character::changeMaxHp(int change){
     maxhp = maxhp + change;
 }
 
+void Character::changeGold(int change){
+    gold = gold + change;
+}
+
 int Character::getStrength(){
     return strength;
 }
@@ -59,6 +64,10 @@ int Character::getPersuasion(){
 
 int Character::getCurrentHp(){
     return currentHp;
+}
+
+int Character::getGold(){
+    return gold;
 }
 
 bool Character::checkAlive(){
