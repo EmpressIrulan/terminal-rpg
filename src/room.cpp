@@ -57,3 +57,7 @@ bool Room::checkSecretDoor(Direction direction){
     wall.discovered = true;
     return wall.hasSecretDoor;
 }
+
+Encounter& Room::getEncounter(){
+    return encounter;
+}

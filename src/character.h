@@ -1,3 +1,5 @@
+#pragma once
+
 class Character{
     private:
         int strength;
@@ -6,6 +8,7 @@ class Character{
         int reason;
         int persuasion;
         int currentHp;
+        int gold;
 
     public:
         Character();
@@ -16,6 +19,7 @@ class Character{
         void changeReason(int change);
         void changePersuasion(int change);
         void changeMaxHp(int change);
+        void changeGold(int change);
 
         int getStrength();
         int getDodge();
@@ -23,6 +27,7 @@ class Character{
         int getReason();
         int getPersuasion();
         int getCurrentHp();
+        int getGold();
 
         bool checkAlive();
 };

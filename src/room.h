@@ -1,3 +1,7 @@
+#pragma once
+
+#include "encounter.h"
+
 enum class WallType { Wall, Room };
 enum class Direction { North, South, East, West };
 
@@ -13,6 +17,7 @@ class Room{
         Wall southWall;
         Wall eastWall;
         Wall westWall;
+        Encounter encounter;
 
         Wall& getWall(Direction direction);
         Wall generateWall();
@@ -22,4 +27,5 @@ class Room{
 
         WallType getWallType(Direction direction);
         bool checkSecretDoor(Direction direction);
+        Encounter& getEncounter();
 };
