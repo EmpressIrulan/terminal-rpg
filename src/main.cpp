@@ -3,6 +3,7 @@
 #include "room.h"
 #include "encounter.h"
 #include "rng.h"
+#include "combatant.h"
 
 int main(){
     rng::seed();
@@ -105,6 +106,15 @@ int main(){
         std::cout << "Enemy HP: " << enemy.getCurrentHp() << "/" << enemy.getMaxhp() << std::endl;
         std::cout << "Enemy gold drop: " << enemy.getGoldDrop() << std::endl;
     }
+
+    std::cout << std::endl;
+
+    Combatant playerCombatant = combat::makePlayerCombatant(player);
+    Combatant minotaurCombatant = combat::makeMinotaurCombatant();
+
+    std::cout << "Combat: " << playerCombatant.name << " vs " << minotaurCombatant.name << std::endl;
+    Combatant* winner = combat::runEncounter(playerCombatant, minotaurCombatant);
+    std::cout << winner->name << " wins!" << std::endl;
 
     return 0;
 }

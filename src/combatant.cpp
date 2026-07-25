@@ -1,5 +1,6 @@
 #include "combatant.h"
 #include "character.h"
+#include "rng.h"
 
 namespace combat{
 
@@ -26,6 +27,29 @@ Combatant makeMinotaurCombatant(){
 bool applyDamage(Combatant& target, int damage){
     target.hp = target.hp - damage;
     return target.hp <= 0;
+}
+
+bool resolveTurn(Combatant& attacker, Combatant& defender){
+    // Hit chance shifts with the attack/defense gap, still clamped by
+    // rollChance so neither side is ever a guaranteed hit or guaranteed miss.
+    int hitChance = 50 + (attacker.attack - defender.defense) * 10;
+    if(!rng::rollChance(hitChance)){
+        return false;
+    }
+
+    int damage = rng::rollRange(1, attacker.attack);
+    return applyDamage(defender, damage);
+}
+
+Combatant* runEncounter(Combatant& a, Combatant& b){
+    while(true){
+        if(resolveTurn(a, b)){
+            return &a;
+        }
+        if(resolveTurn(b, a)){
+            return &b;
+        }
+    }
 }
 
 }
