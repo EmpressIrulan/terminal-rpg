@@ -1,0 +1,24 @@
+name: build
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Same command as CLAUDE.md, so a green check here means the documented
+      # build works — not just some CI-only variant of it.
+      - name: Compile
+        run: |
+          mkdir -p build
+          g++ -Wall -Wextra src/*.cpp -o build/terminal-rpg
+
+      # main.cpp takes no input and exits on its own, so running it catches
+      # crashes the compiler can't (bad indexing, null refs) for free.
+      - name: Smoke run
+        run: timeout 30s ./build/terminal-rpg < /dev/null
