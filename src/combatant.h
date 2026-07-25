@@ -20,4 +20,12 @@ namespace combat{
 
     // Reduces hp by damage and reports whether that KO'd the combatant.
     bool applyDamage(Combatant& target, int damage);
+
+    // One attacker's turn: rolls to hit defender using rng, and on a hit rolls
+    // damage and applies it. Returns whether defender was KO'd.
+    bool resolveTurn(Combatant& attacker, Combatant& defender);
+
+    // Alternates resolveTurn(a, b) / resolveTurn(b, a) until one side is KO'd.
+    // Returns a pointer to whichever Combatant is still standing.
+    Combatant* runEncounter(Combatant& a, Combatant& b);
 }

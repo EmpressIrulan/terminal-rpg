@@ -1,5 +1,9 @@
 #include "combatant.h"
 #include "character.h"
+#include "rng.h"
+#include <chrono>
+#include <iostream>
+#include <thread>
 
 namespace combat{
 
@@ -26,6 +30,35 @@ Combatant makeMinotaurCombatant(){
 bool applyDamage(Combatant& target, int damage){
     target.hp = target.hp - damage;
     return target.hp <= 0;
+}
+
+bool resolveTurn(Combatant& attacker, Combatant& defender){
+    // Hit chance shifts with the attack/defense gap, still clamped by
+    // rollChance so neither side is ever a guaranteed hit or guaranteed miss.
+    int hitChance = 50 + (attacker.attack - defender.defense) * 10;
+    if(!rng::rollChance(hitChance)){
+        std::cout << attacker.name << " attacks " << defender.name << " and misses!" << std::endl;
+        return false;
+    }
+
+    int damage = rng::rollRange(1, attacker.attack);
+    bool koed = applyDamage(defender, damage);
+    std::cout << attacker.name << " hits " << defender.name << " for " << damage << " damage!" << std::endl;
+    return koed;
+}
+
+Combatant* runEncounter(Combatant& a, Combatant& b){
+    while(true){
+        if(resolveTurn(a, b)){
+            return &a;
+        }
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+
+        if(resolveTurn(b, a)){
+            return &b;
+        }
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
 }
 
 }
