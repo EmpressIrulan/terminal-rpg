@@ -13,9 +13,11 @@ struct Combatant{
 };
 
 class Character;
+class Enemy;
 
 namespace combat{
     Combatant makePlayerCombatant(Character& player);
+    Combatant makeEnemyCombatant(Enemy& enemy);
     Combatant makeMinotaurCombatant();
 
     // Reduces hp by damage and reports whether that KO'd the combatant.
@@ -28,4 +30,9 @@ namespace combat{
     // Alternates resolveTurn(a, b) / resolveTurn(b, a) until one side is KO'd.
     // Returns a pointer to whichever Combatant is still standing.
     Combatant* runEncounter(Combatant& a, Combatant& b);
+
+    // Runs a full player-vs-enemy fight, syncing the result back onto player
+    // and enemy (so their own checkAlive() reflects it) and granting the
+    // enemy's gold drop on a win. Returns player.checkAlive() afterward.
+    bool resolveEncounter(Character& player, Enemy& enemy);
 }
