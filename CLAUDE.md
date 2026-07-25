@@ -10,11 +10,11 @@ Roadmap and current build order are tracked in [issue #10](https://github.com/Em
 
 ```
 mkdir -p build
-g++ src/main.cpp src/character.cpp -o build/terminal-rpg
+g++ src/*.cpp -o build/terminal-rpg
 ./build/terminal-rpg
 ```
 
-Compiled output goes in `build/` (gitignored) to keep `src/` clean of build artifacts — this is the standard out-of-source-build convention. There's no Makefile yet; new `.cpp` files need to be added to the `g++` command by hand until one exists (see [issue #12](https://github.com/EmpressIrulan/terminal-rpg/issues/12) for the planned CMake upgrade).
+Compiled output goes in `build/` (gitignored) to keep `src/` clean of build artifacts — this is the standard out-of-source-build convention. The `src/*.cpp` glob pattern compiles every `.cpp` file in the source directory automatically, so new files need no change to the command (see [issue #12](https://github.com/EmpressIrulan/terminal-rpg/issues/12) for the planned CMake upgrade).
 
 ## Conventions
 
