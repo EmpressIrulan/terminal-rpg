@@ -105,6 +105,13 @@ int main(){
         std::cout << "Enemy dodge: " << enemy.getDodge() << std::endl;
         std::cout << "Enemy HP: " << enemy.getCurrentHp() << "/" << enemy.getMaxhp() << std::endl;
         std::cout << "Enemy gold drop: " << enemy.getGoldDrop() << std::endl;
+
+        std::cout << std::endl;
+
+        if(!combat::resolveEncounter(player, enemy)){
+            std::cout << "You have been defeated. Game over." << std::endl;
+            return 0;
+        }
     }
 
     std::cout << std::endl;

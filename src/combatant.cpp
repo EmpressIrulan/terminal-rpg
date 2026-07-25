@@ -1,5 +1,6 @@
 #include "combatant.h"
 #include "character.h"
+#include "enemy.h"
 #include "rng.h"
 #include <chrono>
 #include <iostream>
@@ -13,6 +14,15 @@ Combatant makePlayerCombatant(Character& player){
     combatant.hp = player.getCurrentHp();
     combatant.attack = player.getStrength();
     combatant.defense = player.getDodge();
+    return combatant;
+}
+
+Combatant makeEnemyCombatant(Enemy& enemy){
+    Combatant combatant;
+    combatant.name = enemy.getName();
+    combatant.hp = enemy.getCurrentHp();
+    combatant.attack = enemy.getStrength();
+    combatant.defense = enemy.getDodge();
     return combatant;
 }
 
@@ -59,6 +69,24 @@ Combatant* runEncounter(Combatant& a, Combatant& b){
         }
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
+}
+
+bool resolveEncounter(Character& player, Enemy& enemy){
+    Combatant playerCombatant = makePlayerCombatant(player);
+    Combatant enemyCombatant = makeEnemyCombatant(enemy);
+
+    std::cout << "Combat: " << playerCombatant.name << " vs " << enemyCombatant.name << std::endl;
+    Combatant* winner = runEncounter(playerCombatant, enemyCombatant);
+
+    player.dealDamage(player.getCurrentHp() - playerCombatant.hp);
+    enemy.dealDamage(enemy.getCurrentHp() - enemyCombatant.hp);
+
+    if(winner == &playerCombatant){
+        std::cout << enemy.getName() << " is defeated! Gained " << enemy.getGoldDrop() << " gold." << std::endl;
+        player.changeGold(enemy.getGoldDrop());
+    }
+
+    return player.checkAlive();
 }
 
 }
