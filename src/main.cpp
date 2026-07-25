@@ -3,6 +3,7 @@
 #include <ctime>
 #include "character.h"
 #include "room.h"
+#include "encounter.h"
 
 int main(){
     srand(time(nullptr));
@@ -74,6 +75,37 @@ int main(){
         std::cout << "Room";
     }
     std::cout << std::endl;
+
+    std::cout << std::endl;
+
+    Encounter& encounter = room.getEncounter();
+
+    std::cout << "Encounter: ";
+    if(encounter.getType() == EncounterType::Empty){
+        std::cout << "Empty" << std::endl;
+    }
+    else if(encounter.getType() == EncounterType::Trap){
+        std::cout << "Trap" << std::endl;
+        Trap& trap = encounter.getTrap();
+        std::cout << "Trap type: ";
+        if(trap.getType() == TrapType::Spike){
+            std::cout << "Spike";
+        }
+        std::cout << std::endl;
+    }
+    else if(encounter.getType() == EncounterType::Shop){
+        std::cout << "Shop" << std::endl;
+        std::cout << "Equipment price: " << EQUIPMENT_PRICE << " gold" << std::endl;
+    }
+    else{
+        std::cout << "Enemy" << std::endl;
+        Enemy& enemy = encounter.getEnemy();
+        std::cout << "Enemy name: " << enemy.getName() << std::endl;
+        std::cout << "Enemy strength: " << enemy.getStrength() << std::endl;
+        std::cout << "Enemy dodge: " << enemy.getDodge() << std::endl;
+        std::cout << "Enemy HP: " << enemy.getCurrentHp() << "/" << enemy.getMaxhp() << std::endl;
+        std::cout << "Enemy gold drop: " << enemy.getGoldDrop() << std::endl;
+    }
 
     return 0;
 }
