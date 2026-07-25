@@ -1,15 +1,15 @@
 #include "encounter.h"
-#include <cstdlib>
+#include "rng.h"
 
 Encounter::Encounter() : enemy(EnemyType::GiantRat){
-    int presenceRoll = rand() % 100;
-
-    if(presenceRoll >= ENCOUNTER_CHANCE){
+    if(!rng::rollChance(ENCOUNTER_CHANCE)){
         type = EncounterType::Empty;
         return;
     }
 
-    int typeRoll = rand() % ENCOUNTER_CHANCE;
+    // The encounter exists; this second roll picks which kind, so it spans the
+    // encounter chances only rather than the full 100.
+    int typeRoll = rng::rollRange(0, ENCOUNTER_CHANCE - 1);
 
     if(typeRoll < TRAP_CHANCE){
         type = EncounterType::Trap;

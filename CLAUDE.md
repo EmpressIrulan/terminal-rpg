@@ -28,5 +28,6 @@ Compiled output goes in `build/` (gitignored) to keep `src/` clean of build arti
 ## Architecture
 
 - `Character` (`src/character.h/.cpp`): player stats — strength, dodge, maxhp, reason, persuasion, currentHp — with change/get accessors and `checkAlive()`.
+- `rng` (`src/rng.h/.cpp`): shared random-number generation — `seed()` (once, at startup), `rollChance(percent)`, `rollRange(min, max)`. Free functions in an `rng` namespace rather than a class, since there is no per-instance state. Call these instead of `rand()` directly, so the mechanics stay in one place.
 - `main.cpp` (`src/main.cpp`): entry point — instantiates a `Character` and prints its stats to the terminal. Minimal by design; grows as rooms/encounters land.
 - Everything else (environment, encounters, minotaur clock, GUI) is not yet built — see the roadmap issue for planned order.

@@ -1,7 +1,7 @@
 #include "room.h"
-#include <cstdlib>
+#include "rng.h"
 
-const int WALL_TYPE_THRESHOLD = 50;      // roll below this -> Wall, else Room
+const int WALL_TYPE_THRESHOLD = 50;      // percent chance a wall is Wall, else Room
 const int SECRET_DOOR_CHANCE = 25;       // percent chance a Wall-type wall hides a secret door
 
 Room::Room(){
@@ -13,9 +13,8 @@ Room::Room(){
 
 Wall Room::generateWall(){
     Wall wall;
-    int typeRoll = rand() % 100;
 
-    if(typeRoll < WALL_TYPE_THRESHOLD){
+    if(rng::rollChance(WALL_TYPE_THRESHOLD)){
         wall.type = WallType::Wall;
     }
     else{
@@ -23,7 +22,7 @@ Wall Room::generateWall(){
     }
 
     if(wall.type == WallType::Wall){
-        wall.hasSecretDoor = (rand() % 100) < SECRET_DOOR_CHANCE;
+        wall.hasSecretDoor = rng::rollChance(SECRET_DOOR_CHANCE);
     }
     else{
         wall.hasSecretDoor = false;

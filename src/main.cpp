@@ -1,12 +1,11 @@
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
 #include "character.h"
 #include "room.h"
 #include "encounter.h"
+#include "rng.h"
 
 int main(){
-    srand(time(nullptr));
+    rng::seed();
 
     Character player;
 
