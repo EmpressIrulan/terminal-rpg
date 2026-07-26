@@ -4,6 +4,7 @@
 #include "encounter.h"
 #include "rng.h"
 #include "combatant.h"
+#include "minotaur.h"
 
 int main(){
     rng::seed();
@@ -25,6 +26,7 @@ int main(){
     }
 
     Room room;
+    MinotaurClock minotaurClock;
 
     std::cout << std::endl;
 
@@ -33,6 +35,10 @@ int main(){
         std::cout << "Wall";
         if(room.checkSecretDoor(Direction::North)){
             std::cout << " (secret door!)";
+            minotaurClock.changeDistance(1);
+        }
+        else{
+            minotaurClock.changeDistance(-1);
         }
     }
     else{
@@ -45,6 +51,10 @@ int main(){
         std::cout << "Wall";
         if(room.checkSecretDoor(Direction::South)){
             std::cout << " (secret door!)";
+            minotaurClock.changeDistance(1);
+        }
+        else{
+            minotaurClock.changeDistance(-1);
         }
     }
     else{
@@ -57,6 +67,10 @@ int main(){
         std::cout << "Wall";
         if(room.checkSecretDoor(Direction::East)){
             std::cout << " (secret door!)";
+            minotaurClock.changeDistance(1);
+        }
+        else{
+            minotaurClock.changeDistance(-1);
         }
     }
     else{
@@ -69,6 +83,10 @@ int main(){
         std::cout << "Wall";
         if(room.checkSecretDoor(Direction::West)){
             std::cout << " (secret door!)";
+            minotaurClock.changeDistance(1);
+        }
+        else{
+            minotaurClock.changeDistance(-1);
         }
     }
     else{
@@ -108,6 +126,7 @@ int main(){
 
         std::cout << std::endl;
 
+        minotaurClock.changeDistance(-1);
         if(!combat::resolveEncounter(player, enemy)){
             std::cout << "You have been defeated. Game over." << std::endl;
             return 0;
@@ -116,12 +135,18 @@ int main(){
 
     std::cout << std::endl;
 
-    Combatant playerCombatant = combat::makePlayerCombatant(player);
-    Combatant minotaurCombatant = combat::makeMinotaurCombatant();
+    std::cout << "The Minotaur is " << minotaurClock.getDistance() << " rooms behind you." << std::endl;
 
-    std::cout << "Combat: " << playerCombatant.name << " vs " << minotaurCombatant.name << std::endl;
-    Combatant* winner = combat::runEncounter(playerCombatant, minotaurCombatant);
-    std::cout << winner->name << " wins!" << std::endl;
+    if(minotaurClock.checkCaughtPlayer()){
+        std::cout << "The Minotaur has caught up to you!" << std::endl;
+        std::cout << std::endl;
+
+        Enemy minotaur(EnemyType::Minotaur);
+        if(!combat::resolveEncounter(player, minotaur)){
+            std::cout << "You have been defeated. Game over." << std::endl;
+            return 0;
+        }
+    }
 
     return 0;
 }

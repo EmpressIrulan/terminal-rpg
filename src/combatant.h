@@ -18,7 +18,6 @@ class Enemy;
 namespace combat{
     Combatant makePlayerCombatant(Character& player);
     Combatant makeEnemyCombatant(Enemy& enemy);
-    Combatant makeMinotaurCombatant();
 
     // Reduces hp by damage and reports whether that KO'd the combatant.
     bool applyDamage(Combatant& target, int damage);
