@@ -11,6 +11,14 @@ Enemy::Enemy(EnemyType type){
         currentHp = 5;
         goldDrop = 1;
     }
+    else if(type == EnemyType::Minotaur){
+        name = "Minotaur";
+        strength = 4;
+        dodge = 1;
+        maxhp = 20;
+        currentHp = 20;
+        goldDrop = 0;
+    }
 }
 
 std::string Enemy::getName(){

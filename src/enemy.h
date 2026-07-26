@@ -2,7 +2,7 @@
 
 #include <string>
 
-enum class EnemyType { GiantRat };
+enum class EnemyType { GiantRat, Minotaur };
 
 class Enemy{
     private:

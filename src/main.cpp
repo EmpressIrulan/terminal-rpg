@@ -26,7 +26,7 @@ int main(){
     }
 
     Room room;
-    Minotaur minotaur;
+    MinotaurClock minotaurClock;
 
     std::cout << std::endl;
 
@@ -35,10 +35,10 @@ int main(){
         std::cout << "Wall";
         if(room.checkSecretDoor(Direction::North)){
             std::cout << " (secret door!)";
-            minotaur.changeDistance(1);
+            minotaurClock.changeDistance(1);
         }
         else{
-            minotaur.changeDistance(-1);
+            minotaurClock.changeDistance(-1);
         }
     }
     else{
@@ -51,10 +51,10 @@ int main(){
         std::cout << "Wall";
         if(room.checkSecretDoor(Direction::South)){
             std::cout << " (secret door!)";
-            minotaur.changeDistance(1);
+            minotaurClock.changeDistance(1);
         }
         else{
-            minotaur.changeDistance(-1);
+            minotaurClock.changeDistance(-1);
         }
     }
     else{
@@ -67,10 +67,10 @@ int main(){
         std::cout << "Wall";
         if(room.checkSecretDoor(Direction::East)){
             std::cout << " (secret door!)";
-            minotaur.changeDistance(1);
+            minotaurClock.changeDistance(1);
         }
         else{
-            minotaur.changeDistance(-1);
+            minotaurClock.changeDistance(-1);
         }
     }
     else{
@@ -83,10 +83,10 @@ int main(){
         std::cout << "Wall";
         if(room.checkSecretDoor(Direction::West)){
             std::cout << " (secret door!)";
-            minotaur.changeDistance(1);
+            minotaurClock.changeDistance(1);
         }
         else{
-            minotaur.changeDistance(-1);
+            minotaurClock.changeDistance(-1);
         }
     }
     else{
@@ -126,7 +126,7 @@ int main(){
 
         std::cout << std::endl;
 
-        minotaur.changeDistance(-1);
+        minotaurClock.changeDistance(-1);
         if(!combat::resolveEncounter(player, enemy)){
             std::cout << "You have been defeated. Game over." << std::endl;
             return 0;
@@ -135,13 +135,14 @@ int main(){
 
     std::cout << std::endl;
 
-    std::cout << "The Minotaur is " << minotaur.getDistance() << " rooms behind you." << std::endl;
+    std::cout << "The Minotaur is " << minotaurClock.getDistance() << " rooms behind you." << std::endl;
 
-    if(minotaur.checkCaughtPlayer()){
+    if(minotaurClock.checkCaughtPlayer()){
         std::cout << "The Minotaur has caught up to you!" << std::endl;
         std::cout << std::endl;
 
-        if(!combat::resolveMinotaurEncounter(player, minotaur)){
+        Enemy minotaur(EnemyType::Minotaur);
+        if(!combat::resolveEncounter(player, minotaur)){
             std::cout << "You have been defeated. Game over." << std::endl;
             return 0;
         }

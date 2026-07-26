@@ -1,7 +1,6 @@
 #include "combatant.h"
 #include "character.h"
 #include "enemy.h"
-#include "minotaur.h"
 #include "rng.h"
 #include <chrono>
 #include <iostream>
@@ -24,15 +23,6 @@ Combatant makeEnemyCombatant(Enemy& enemy){
     combatant.hp = enemy.getCurrentHp();
     combatant.attack = enemy.getStrength();
     combatant.defense = enemy.getDodge();
-    return combatant;
-}
-
-Combatant makeMinotaurCombatant(Minotaur& minotaur){
-    Combatant combatant;
-    combatant.name = minotaur.getName();
-    combatant.hp = minotaur.getCurrentHp();
-    combatant.attack = minotaur.getStrength();
-    combatant.defense = minotaur.getDodge();
     return combatant;
 }
 
@@ -83,23 +73,6 @@ bool resolveEncounter(Character& player, Enemy& enemy){
     if(winner == &playerCombatant){
         std::cout << enemy.getName() << " is defeated! Gained " << enemy.getGoldDrop() << " gold." << std::endl;
         player.changeGold(enemy.getGoldDrop());
-    }
-
-    return player.checkAlive();
-}
-
-bool resolveMinotaurEncounter(Character& player, Minotaur& minotaur){
-    Combatant playerCombatant = makePlayerCombatant(player);
-    Combatant minotaurCombatant = makeMinotaurCombatant(minotaur);
-
-    std::cout << "Combat: " << playerCombatant.name << " vs " << minotaurCombatant.name << std::endl;
-    Combatant* winner = runEncounter(playerCombatant, minotaurCombatant);
-
-    player.dealDamage(player.getCurrentHp() - playerCombatant.hp);
-    minotaur.dealDamage(minotaur.getCurrentHp() - minotaurCombatant.hp);
-
-    if(winner == &playerCombatant){
-        std::cout << "The Minotaur is defeated! You win!" << std::endl;
     }
 
     return player.checkAlive();
