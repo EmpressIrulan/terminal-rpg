@@ -14,11 +14,12 @@ struct Combatant{
 
 class Character;
 class Enemy;
+class Minotaur;
 
 namespace combat{
     Combatant makePlayerCombatant(Character& player);
     Combatant makeEnemyCombatant(Enemy& enemy);
-    Combatant makeMinotaurCombatant();
+    Combatant makeMinotaurCombatant(Minotaur& minotaur);
 
     // Reduces hp by damage and reports whether that KO'd the combatant.
     bool applyDamage(Combatant& target, int damage);
@@ -35,4 +36,8 @@ namespace combat{
     // and enemy (so their own checkAlive() reflects it) and granting the
     // enemy's gold drop on a win. Returns player.checkAlive() afterward.
     bool resolveEncounter(Character& player, Enemy& enemy);
+
+    // Runs the final player-vs-Minotaur fight, syncing the result back onto
+    // player and minotaur. Returns player.checkAlive() afterward.
+    bool resolveMinotaurEncounter(Character& player, Minotaur& minotaur);
 }

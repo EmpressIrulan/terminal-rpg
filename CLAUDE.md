@@ -29,5 +29,6 @@ Compiled output goes in `build/` (gitignored) to keep `src/` clean of build arti
 
 - `Character` (`src/character.h/.cpp`): player stats — strength, dodge, maxhp, reason, persuasion, currentHp — with change/get accessors and `checkAlive()`.
 - `rng` (`src/rng.h/.cpp`): shared random-number generation — `seed()` (once, at startup), `rollChance(percent)`, `rollRange(min, max)`. Free functions in an `rng` namespace rather than a class, since there is no per-instance state. Call these instead of `rand()` directly, so the mechanics stay in one place.
-- `main.cpp` (`src/main.cpp`): entry point — instantiates a `Character` and prints its stats to the terminal. Minimal by design; grows as rooms/encounters land.
-- Everything else (environment, encounters, minotaur clock, GUI) is not yet built — see the roadmap issue for planned order.
+- `Minotaur` (`src/minotaur.h/.cpp`): the game's ticking clock. Starts `MINOTAUR_STARTING_DISTANCE` rooms behind the player; `changeDistance(delta)` closes the gap (fighting, buying, failing to find a secret door) or opens it (finding a secret door is the only thing that does). `checkCaughtPlayer()` reports whether distance has hit zero, at which point `combat::resolveMinotaurEncounter` runs the final fight.
+- `main.cpp` (`src/main.cpp`): entry point — instantiates a `Character`, a `Room`, and a `Minotaur`, walks the room's walls (adjusting the Minotaur's distance on each), resolves any encounter, then checks whether the Minotaur has caught up. Minimal by design; grows as rooms/encounters land.
+- Everything else (environment traversal loop, GUI) is not yet built — see the roadmap issue for planned order.
