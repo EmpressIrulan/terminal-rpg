@@ -55,6 +55,9 @@ bool gui::promptShopPurchase(Shop& shop, Character& player){
         std::cout << "> ";
         int choice;
         if(!(std::cin >> choice)){
+            if(std::cin.eof()){
+                return false;
+            }
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "Invalid choice." << std::endl;
@@ -103,6 +106,9 @@ std::optional<Direction> gui::promptMove(Room& room){
         std::cout << "> ";
         int choice;
         if(!(std::cin >> choice)){
+            if(std::cin.eof()){
+                return std::nullopt;
+            }
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "Invalid choice." << std::endl;
