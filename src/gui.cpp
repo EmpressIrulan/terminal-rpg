@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include "gui.h"
 
 namespace {
@@ -54,7 +55,10 @@ bool gui::promptShopPurchase(Shop& shop, Character& player){
         std::cout << "> ";
         int choice;
         if(!(std::cin >> choice)){
-            return false;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid choice." << std::endl;
+            continue;
         }
         if(choice == 0){
             return false;
@@ -99,7 +103,10 @@ std::optional<Direction> gui::promptMove(Room& room){
         std::cout << "> ";
         int choice;
         if(!(std::cin >> choice)){
-            return std::nullopt;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid choice." << std::endl;
+            continue;
         }
         if(choice == 0){
             return std::nullopt;
