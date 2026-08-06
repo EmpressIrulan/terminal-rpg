@@ -7,6 +7,19 @@
 #include "minotaur.h"
 #include "gui.h"
 
+namespace {
+    Room generateRoom(){
+        while(true){
+            try{
+                return Room();
+            }
+            catch(const DeadEndRoom&){
+                // All four walls rolled solid; reroll rather than trap the player.
+            }
+        }
+    }
+}
+
 int main(){
     rng::seed();
 
@@ -16,7 +29,7 @@ int main(){
     MinotaurClock minotaurClock;
 
     while(true){
-        Room room;
+        Room room = generateRoom();
 
         std::cout << std::endl;
         gui::examineWalls(room, minotaurClock);

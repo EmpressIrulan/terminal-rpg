@@ -1,5 +1,6 @@
 #include "room.h"
 #include "rng.h"
+#include <stdexcept>
 
 const int WALL_TYPE_THRESHOLD = 50;      // percent chance a wall is Wall, else Room
 const int SECRET_DOOR_CHANCE = 25;       // percent chance a Wall-type wall hides a secret door
@@ -9,6 +10,11 @@ Room::Room(){
     southWall = generateWall();
     eastWall = generateWall();
     westWall = generateWall();
+
+    if(northWall.type == WallType::Wall && southWall.type == WallType::Wall &&
+       eastWall.type == WallType::Wall && westWall.type == WallType::Wall){
+        throw DeadEndRoom();
+    }
 }
 
 Wall Room::generateWall(){
