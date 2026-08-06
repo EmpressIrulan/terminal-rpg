@@ -16,9 +16,7 @@ void gui::displayStats(Character& player){
     std::cout << "Gold: " << player.getGold() << std::endl;
 }
 
-int gui::examineWalls(Room& room){
-    int distanceChange = 0;
-
+void gui::examineWalls(Room& room, MinotaurClock& minotaurClock){
     for(int i = 0; i < 4; i++){
         Direction direction = ALL_DIRECTIONS[i];
         std::cout << DIRECTION_NAMES[i] << " wall: ";
@@ -27,10 +25,10 @@ int gui::examineWalls(Room& room){
             std::cout << "Wall";
             if(room.checkSecretDoor(direction)){
                 std::cout << " (secret door!)";
-                distanceChange += 1;
+                minotaurClock.changeDistance(1);
             }
             else{
-                distanceChange -= 1;
+                minotaurClock.changeDistance(-1);
             }
         }
         else{
@@ -38,8 +36,6 @@ int gui::examineWalls(Room& room){
         }
         std::cout << std::endl;
     }
-
-    return distanceChange;
 }
 
 bool gui::promptShopPurchase(Shop& shop, Character& player){

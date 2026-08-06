@@ -19,7 +19,7 @@ int main(){
         Room room;
 
         std::cout << std::endl;
-        minotaurClock.changeDistance(gui::examineWalls(room));
+        gui::examineWalls(room, minotaurClock);
 
         std::cout << std::endl;
 
