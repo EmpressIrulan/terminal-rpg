@@ -67,12 +67,15 @@ bool gui::promptShopPurchase(Shop& shop, Character& player){
             return false;
         }
         if(choice >= 1 && choice <= 4){
-            if(shop.buy(player, items[choice - 1])){
+            try{
+                shop.buy(player, items[choice - 1]);
                 std::cout << "Bought " << names[choice - 1] << "." << std::endl;
                 return true;
             }
-            std::cout << "Not enough gold." << std::endl;
-            return false;
+            catch(const InsufficientGold& e){
+                std::cout << "Not enough gold. Need " << e.price << ", have " << e.have << "." << std::endl;
+                return false;
+            }
         }
         std::cout << "Invalid choice." << std::endl;
     }

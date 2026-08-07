@@ -23,7 +23,7 @@ Compiled output goes in `build/` (gitignored) to keep `src/` clean of build arti
   - `changeX(delta)`: adds/subtracts a value (e.g. `changeStrength(-2)`)
   - `setX(value)`: assigns a value directly
   - `getX()`: plain pass-through accessor, no derived/computed logic
-- No exceptions yet. Use return values / bool checks for state and error handling (e.g. `checkAlive()` returns `bool` rather than throwing). Exceptions are intentionally deferred as a dedicated learning topic (see [issue #9](https://github.com/EmpressIrulan/terminal-rpg/issues/9)), to be tackled once the MVP prototype works, not mixed into feature work. One narrow carve-out: `Room`'s constructor throws `DeadEndRoom` when all four walls roll solid, and `main.cpp` catches it to reroll. That's a control-flow escape for an unplayable generation result, not the error-handling system issue #9 covers.
+- Exceptions are for invalid state and failed transactions, not general control flow. `checkAlive()` still returns `bool` because "is the player dead" is a normal outcome to check every turn, not a failure. Current throw sites: `Room`'s constructor throws `DeadEndRoom` when all four walls roll solid (`main.cpp` catches it to reroll); `Character::changeMaxHp` throws `InvalidStatChange` if the change would drop max HP to zero or below; `Shop::buy` throws `InsufficientGold` if the player can't afford the item (`gui::promptShopPurchase` catches it and reports the shortfall). Each exception type is a plain struct carrying the fields a catcher needs to explain the failure, not a `std::exception` subclass.
 
 ## Architecture
 
