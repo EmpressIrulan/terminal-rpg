@@ -35,7 +35,11 @@ void Character::changePersuasion(int change){
 }
 
 void Character::changeMaxHp(int change){
-    maxhp = maxhp + change;
+    int next = maxhp + change;
+    if(next <= 0){
+        throw InvalidStatChange{next};
+    }
+    maxhp = next;
 }
 
 void Character::changeGold(int change){

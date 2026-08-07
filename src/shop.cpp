@@ -1,8 +1,8 @@
 #include "shop.h"
 
-bool Shop::buy(Character& player, EquipmentType item){
+void Shop::buy(Character& player, EquipmentType item){
     if(player.getGold() < EQUIPMENT_PRICE){
-        return false;
+        throw InsufficientGold{EQUIPMENT_PRICE, player.getGold()};
     }
 
     player.changeGold(-EQUIPMENT_PRICE);
@@ -19,6 +19,4 @@ bool Shop::buy(Character& player, EquipmentType item){
     else{
         player.changePersuasion(1);
     }
-
-    return true;
 }

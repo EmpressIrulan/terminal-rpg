@@ -1,5 +1,11 @@
 #pragma once
 
+// Thrown by Character::changeMaxHp when the change would drop max HP to
+// zero or below.
+struct InvalidStatChange {
+    int attempted;
+};
+
 class Character{
     private:
         int strength;
