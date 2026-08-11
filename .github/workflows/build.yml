@@ -11,12 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Same command as CLAUDE.md, so a green check here means the documented
+      # Same commands as CLAUDE.md, so a green check here means the documented
       # build works — not just some CI-only variant of it.
-      - name: Compile
-        run: |
-          mkdir -p build
-          g++ -Wall -Wextra src/*.cpp -o build/terminal-rpg
+      - name: Configure
+        run: cmake -S . -B build
+
+      - name: Build
+        run: cmake --build build
 
       # main.cpp takes no input and exits on its own, so running it catches
       # crashes the compiler can't (bad indexing, null refs) for free.

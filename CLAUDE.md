@@ -9,12 +9,12 @@ Roadmap and current build order are tracked in [issue #10](https://github.com/Em
 ## Build
 
 ```
-mkdir -p build
-g++ src/*.cpp -o build/terminal-rpg
+cmake -S . -B build
+cmake --build build
 ./build/terminal-rpg
 ```
 
-Compiled output goes in `build/` (gitignored) to keep `src/` clean of build artifacts. This is the standard out-of-source-build convention. The `src/*.cpp` glob pattern compiles every `.cpp` file in the source directory automatically, so new files need no change to the command (see [issue #12](https://github.com/EmpressIrulan/terminal-rpg/issues/12) for the planned CMake upgrade).
+Compiled output goes in `build/` (gitignored) to keep `src/` clean of build artifacts. This is the standard out-of-source-build convention. `CMakeLists.txt` at the root sets the project-wide C++ standard and compile options and descends into `src/CMakeLists.txt`, which builds every file except `main.cpp` into a static library (`terminal-rpg-lib`) and links the `terminal-rpg` executable against it. A new `.cpp` file needs a line added to `src/CMakeLists.txt`'s `add_library` call: CMake lists sources explicitly rather than globbing, so an added or removed file is picked up on the next configure instead of the build going stale silently.
 
 ## Conventions
 
