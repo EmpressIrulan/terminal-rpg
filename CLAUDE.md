@@ -14,7 +14,7 @@ cmake --build build
 ./build/terminal-rpg
 ```
 
-Compiled output goes in `build/` (gitignored) to keep `src/` clean of build artifacts. This is the standard out-of-source-build convention. `CMakeLists.txt` at the root sets the project-wide C++ standard and compile options and descends into `src/CMakeLists.txt`, which builds every file except `main.cpp` into a static library (`terminal-rpg-lib`) and links the `terminal-rpg` executable against it. A new `.cpp` file needs a line added to `src/CMakeLists.txt`'s `add_library` call: CMake lists sources explicitly rather than globbing, so an added or removed file is picked up on the next configure instead of the build going stale silently.
+Compiled output goes in `build/` (gitignored) to keep `src/` clean of build artifacts. This is the standard out-of-source-build convention. `CMakeLists.txt` at the root sets the project-wide C++ standard and compile options and descends into `src/CMakeLists.txt`, which builds every file except `main.cpp` into a static library (`terminal-rpg-lib`) and links the `terminal-rpg` executable against it. A new `.cpp` file needs a line added to `src/CMakeLists.txt`'s `add_library` call: CMake lists sources explicitly rather than globbing, so a file left off the list fails loudly at link time instead of silently missing from the build.
 
 ## Conventions
 
