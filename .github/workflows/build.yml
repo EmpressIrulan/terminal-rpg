@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Same commands as CLAUDE.md, so a green check here means the documented
+      # Same commands as AGENTS.md, so a green check here means the documented
       # build works — not just some CI-only variant of it.
       - name: Configure
         run: cmake -S . -B build
